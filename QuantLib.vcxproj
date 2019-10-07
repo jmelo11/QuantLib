@@ -905,6 +905,8 @@
     <ClInclude Include="ql\instruments\futures.hpp" />
     <ClInclude Include="ql\instruments\impliedvolatility.hpp" />
     <ClInclude Include="ql\instruments\inflationcapfloor.hpp" />
+    <ClInclude Include="ql\instruments\loans\loan.hpp" />
+    <ClInclude Include="ql\instruments\loans\structuredloans.hpp" />
     <ClInclude Include="ql\instruments\lookbackoption.hpp" />
     <ClInclude Include="ql\instruments\makecapfloor.hpp" />
     <ClInclude Include="ql\instruments\makecds.hpp" />
@@ -2120,6 +2122,8 @@
     <ClCompile Include="ql\instruments\futures.cpp" />
     <ClCompile Include="ql\instruments\impliedvolatility.cpp" />
     <ClCompile Include="ql\instruments\inflationcapfloor.cpp" />
+    <ClCompile Include="ql\instruments\loans\loan.cpp" />
+    <ClCompile Include="ql\instruments\loans\structuredloans.cpp" />
     <ClCompile Include="ql\instruments\lookbackoption.cpp" />
     <ClCompile Include="ql\instruments\makecapfloor.cpp" />
     <ClCompile Include="ql\instruments\makecds.cpp" />
