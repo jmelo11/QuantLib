@@ -60,3 +60,5 @@
 #include <ql/instruments/zerocouponinflationswap.hpp>
 
 #include <ql/instruments/bonds/all.hpp>
+#include <ql/instruments/loans/loan.hpp>
+#include <ql/instruments/loans/structuredloans.hpp>
