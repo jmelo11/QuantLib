@@ -1,3 +1,12 @@
+//
+//  loan.cpp
+//  Loans
+//
+//  Created by Jose Melo on 9/22/19.
+//  Copyright © 2019 Jose Melo. All rights reserved.
+//
+
+
 #include <ql/qldefines.hpp>
 
 #ifdef BOOST_MSVC
@@ -12,6 +21,8 @@
 #include <ql/pricingengines/bond/discountingbondengine.hpp>
 #include <ql/pricingengines/bond/bondfunctions.hpp>
 #include <ql/quantlib.hpp>
+#include <ql/termstructures/yieldtermstructure.hpp>
+#include <ql/cashflows/cashflows.hpp>
 
 namespace QuantLib{
 	Loan::Loan(Natural settlementDays,
