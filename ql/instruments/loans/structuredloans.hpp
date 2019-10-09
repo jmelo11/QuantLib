@@ -1,3 +1,5 @@
+
+
 #ifndef structuredloans_hpp
 #define structuredloans_hpp
 #endif /* structuredloans_hpp */
@@ -24,6 +26,17 @@ public:
                           const BusinessDayConvention exCouponConvention = Unadjusted,
                           bool exCouponEndOfMonth = false);
     
+	EqualAmortizationLoan(Natural settlementDays,
+							Real faceAmount,
+							const Schedule& schedule,
+							const InterestRate coupon,
+							BusinessDayConvention paymentConvention,
+							const Date& issueDate,
+							const Calendar& paymentCalendar,
+							const Period& exCouponPeriod,
+							const Calendar& exCouponCalendar,
+							const BusinessDayConvention exCouponConvention,
+							bool exCouponEndOfMonth);
     EqualAmortizationLoan(Natural settlementDays,
                           Real faceAmount,
                           Schedule schedule,
@@ -37,6 +50,7 @@ public:
                           const BusinessDayConvention exCouponConvention = Unadjusted,
                           bool exCouponEndOfMonth = false);
     
+
     Frequency frequency() const { return frequency_; }
     const DayCounter& dayCounter() const { return dayCounter_; }
 protected:
@@ -46,11 +60,25 @@ protected:
 class EqualCashFlowLoan : public Loan {
     
 public:
+	EqualCashFlowLoan(Natural settlementDays,
+						Real faceAmount,
+						const Schedule& schedule,
+						const Real coupon,
+						const DayCounter& dayCounter,
+						Compounding comp,
+						Frequency freq,
+						BusinessDayConvention paymentConvention,
+						const Date& issueDate,
+						const Calendar& paymentCalendar,
+						const Period& exCouponPeriod,
+						const Calendar& exCouponCalendar,
+						const BusinessDayConvention exCouponConvention,
+						bool exCouponEndOfMonth);
+
     EqualCashFlowLoan(Natural settlementDays,
                       Real faceAmount,
                       const Schedule& schedule,
                       const InterestRate& coupon,
-                      const DayCounter& accrualDayCounter,
                       BusinessDayConvention paymentConvention = Following,
                       const Date& issueDate = Date(),
                       const Calendar& paymentCalendar = Calendar(),
@@ -76,15 +104,7 @@ public:
     
     Frequency frequency() const { return frequency_; }
     const DayCounter& dayCounter() const { return dayCounter_; }
-private:
-    Leg buildEqualCashFlows(Real cf, Real faceAmount, InterestRate coupon,
-                            Schedule schedule,
-                            BusinessDayConvention paymentConvention,
-                            const Calendar& paymentCalendar,
-                            const Period& exCouponPeriod,
-                            const Calendar& exCouponCalendar,
-                            const BusinessDayConvention exCouponConvention,
-                            bool exCouponEndOfMonth);
+
 protected:
     Frequency frequency_;
     DayCounter dayCounter_;
