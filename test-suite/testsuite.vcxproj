@@ -39,6 +39,7 @@
     <ProjectGuid>{A613045C-34AF-4706-AA3C-730C92524F74}</ProjectGuid>
     <RootNamespace>testsuite</RootNamespace>
     <VCTargetsPath Condition="'$(VCTargetsPath11)' != '' and '$(VSVersion)' == '' and $(VisualStudioVersion) == ''">$(VCTargetsPath11)</VCTargetsPath>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="..\QuantLib.props" />
@@ -168,6 +169,46 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">QuantLib-test-suite-x64-mt-gd</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug (static runtime)|Win32'">QuantLib-test-suite-mt-sgd</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug (static runtime)|x64'">QuantLib-test-suite-x64-mt-sgd</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\Users\bloomberg\Desktop\c++\boost_1_71_0;C:\Users\bloomberg\Desktop\c++\QuantLib;$(IncludePath)</IncludePath>
+    <ReferencePath>$(ReferencePath)</ReferencePath>
+    <LibraryPath>C:\Users\bloomberg\Desktop\c++\boost_1_71_0\lib;C:\Users\bloomberg\Desktop\c++\QuantLib\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug (static runtime)|Win32'">
+    <IncludePath>C:\Users\bloomberg\Desktop\c++\boost_1_71_0;C:\Users\bloomberg\Desktop\c++\QuantLib;$(IncludePath)</IncludePath>
+    <ReferencePath>$(ReferencePath)</ReferencePath>
+    <LibraryPath>C:\Users\bloomberg\Desktop\c++\boost_1_71_0\lib;C:\Users\bloomberg\Desktop\c++\QuantLib\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>C:\Users\bloomberg\Desktop\c++\boost_1_71_0;C:\Users\bloomberg\Desktop\c++\QuantLib;$(IncludePath)</IncludePath>
+    <ReferencePath>$(ReferencePath)</ReferencePath>
+    <LibraryPath>C:\Users\bloomberg\Desktop\c++\boost_1_71_0\lib;C:\Users\bloomberg\Desktop\c++\QuantLib\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release (static runtime)|Win32'">
+    <IncludePath>C:\Users\bloomberg\Desktop\c++\boost_1_71_0;C:\Users\bloomberg\Desktop\c++\QuantLib;$(IncludePath)</IncludePath>
+    <ReferencePath>$(ReferencePath)</ReferencePath>
+    <LibraryPath>C:\Users\bloomberg\Desktop\c++\boost_1_71_0\lib;C:\Users\bloomberg\Desktop\c++\QuantLib\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Users\bloomberg\Desktop\c++\boost_1_71_0;C:\Users\bloomberg\Desktop\c++\QuantLib;$(IncludePath)</IncludePath>
+    <ReferencePath>$(ReferencePath)</ReferencePath>
+    <LibraryPath>C:\Users\bloomberg\Desktop\c++\boost_1_71_0\lib;C:\Users\bloomberg\Desktop\c++\QuantLib\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug (static runtime)|x64'">
+    <IncludePath>C:\Users\bloomberg\Desktop\c++\boost_1_71_0;C:\Users\bloomberg\Desktop\c++\QuantLib;$(IncludePath)</IncludePath>
+    <ReferencePath>$(ReferencePath)</ReferencePath>
+    <LibraryPath>C:\Users\bloomberg\Desktop\c++\boost_1_71_0\lib;C:\Users\bloomberg\Desktop\c++\QuantLib\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>C:\Users\bloomberg\Desktop\c++\boost_1_71_0;C:\Users\bloomberg\Desktop\c++\QuantLib;$(IncludePath)</IncludePath>
+    <ReferencePath>$(ReferencePath)</ReferencePath>
+    <LibraryPath>C:\Users\bloomberg\Desktop\c++\boost_1_71_0\lib;C:\Users\bloomberg\Desktop\c++\QuantLib\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release (static runtime)|x64'">
+    <IncludePath>C:\Users\bloomberg\Desktop\c++\boost_1_71_0;C:\Users\bloomberg\Desktop\c++\QuantLib;$(IncludePath)</IncludePath>
+    <ReferencePath>$(ReferencePath)</ReferencePath>
+    <LibraryPath>C:\Users\bloomberg\Desktop\c++\boost_1_71_0\lib;C:\Users\bloomberg\Desktop\c++\QuantLib\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug (static runtime)|Win32'">
     <Midl>

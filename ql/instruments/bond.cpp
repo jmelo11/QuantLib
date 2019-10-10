@@ -24,7 +24,7 @@
 
 #include <ql/instruments/bond.hpp>
 #include <ql/cashflows/cashflows.hpp>
-#include <ql/cashflows/floatingratecoupon.hpp>
+#include <ql/cashflows/fixedratecoupon.hpp>
 #include <ql/math/solvers1d/brent.hpp>
 #include <ql/cashflows/simplecashflow.hpp>
 #include <ql/pricingengines/bond/discountingbondengine.hpp>

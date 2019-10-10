@@ -6,22 +6,12 @@
 //  Copyright © 2019 Jose Melo. All rights reserved.
 //
 
-
-#include <ql/qldefines.hpp>
-
-#ifdef BOOST_MSVC
-#  include <ql/auto_link.hpp>
-#endif
-
-#include <ql/instruments/loans/loan.hpp>
-#include <ql/cashflows/cashflows.hpp>
 #include <ql/cashflows/floatingratecoupon.hpp>
-#include <ql/math/solvers1d/brent.hpp>
 #include <ql/cashflows/simplecashflow.hpp>
-#include <ql/pricingengines/bond/discountingbondengine.hpp>
+#include <ql/instruments/loans/loan.hpp>
+#include <ql/math/solvers1d/brent.hpp>
 #include <ql/pricingengines/bond/bondfunctions.hpp>
-#include <ql/termstructures/yieldtermstructure.hpp>
-#include <ql/cashflows/cashflows.hpp>
+#include <ql/pricingengines/bond/discountingbondengine.hpp>
 
 namespace QuantLib{
 	Loan::Loan(Natural settlementDays,
