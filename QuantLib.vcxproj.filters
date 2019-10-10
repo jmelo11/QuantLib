@@ -337,6 +337,9 @@
     <Filter Include="methods\finitedifferences\utilities">
       <UniqueIdentifier>{be723df5-2e58-41de-8071-8d2e2f62410a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="instruments\loans">
+      <UniqueIdentifier>{26a601ad-2620-4b44-820f-2dedb8ca8ee1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ql\methods\all.hpp">
@@ -4286,10 +4289,10 @@
       <Filter>pricingengines\vanilla</Filter>
     </ClInclude>
     <ClInclude Include="ql\instruments\loans\loan.hpp">
-      <Filter>instruments</Filter>
+      <Filter>instruments\loans</Filter>
     </ClInclude>
     <ClInclude Include="ql\instruments\loans\structuredloans.hpp">
-      <Filter>instruments</Filter>
+      <Filter>instruments\loans</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -6922,10 +6925,10 @@
       <Filter>pricingengines\vanilla</Filter>
     </ClCompile>
     <ClCompile Include="ql\instruments\loans\loan.cpp">
-      <Filter>instruments</Filter>
+      <Filter>instruments\loans</Filter>
     </ClCompile>
     <ClCompile Include="ql\instruments\loans\structuredloans.cpp">
-      <Filter>instruments</Filter>
+      <Filter>instruments\loans</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

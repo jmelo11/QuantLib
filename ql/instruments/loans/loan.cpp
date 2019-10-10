@@ -20,7 +20,6 @@
 #include <ql/cashflows/simplecashflow.hpp>
 #include <ql/pricingengines/bond/discountingbondengine.hpp>
 #include <ql/pricingengines/bond/bondfunctions.hpp>
-#include <ql/quantlib.hpp>
 #include <ql/termstructures/yieldtermstructure.hpp>
 #include <ql/cashflows/cashflows.hpp>
 
