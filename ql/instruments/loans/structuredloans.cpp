@@ -15,6 +15,9 @@
 #include <ql/termstructures/yield/flatforward.hpp>
 //need to be fixed
 #include <ql/quantlib.hpp>
+#include <numeric>
+
+
 
 namespace QuantLib {
     UnEqualAmortizationLoan::UnEqualAmortizationLoan(std::vector<Real> amortizations,
@@ -30,16 +33,15 @@ namespace QuantLib {
                                                      const Calendar& exCouponCalendar,
                                                      const BusinessDayConvention exCouponConvention,
                                                      bool exCouponEndOfMonth): Loan(0, schedule.calendar(), issueDate) {
-		QL_ENSURE(amortizations.size() != schedule.size() - 1,"number of amortization different than scheduled payment dates");
+		//QL_ENSURE(amortizations.size() != schedule.size() - 1,"number of amortization different than scheduled payment dates");
 		
-        Real notional = 0;
+        Real notional = std::accumulate(amortizations.begin(), amortizations.end(), 0);
         std::vector<Real> notionals;
-        for (Size i = 0; i < schedule.size(); i++) {
-            notional += amortizations[i];
+        for (Size i = 0; i < amortizations.size(); i++) {
+            notional -= amortizations[i];
             notionals.push_back(notional);
         }
-        std::reverse(notionals.begin(), notionals.end());
-
+        	
 		InterestRate tmp_rate(coupon, dayCounter, comp, freq);
         cashflows_ = FixedRateLeg(schedule)
                          .withNotionals(notionals)
@@ -63,10 +65,10 @@ namespace QuantLib {
                                                      const Calendar& exCouponCalendar,
                                                      const BusinessDayConvention exCouponConvention,
                                                      bool exCouponEndOfMonth): Loan(0, schedule.calendar(), issueDate) {
-        QL_ENSURE(amortizations.size() != schedule.size() - 1,"number of amortization different than scheduled payment dates");
+        //QL_ENSURE(amortizations.size() != schedule.size() - 1,"number of amortization different than scheduled payment dates");
         Real notional = 0;
-        std::vector<Real> notionals;
-        for (Size i = 0; i < schedule.size(); i++) {
+        std::vector<Real> notionals{0};
+        for (Size i = 0; i < amortizations.size(); i++) {
             notional += amortizations[i];
             notionals.push_back(notional);
         }
@@ -97,25 +99,35 @@ namespace QuantLib {
 													const BusinessDayConvention exCouponConvention,
 													bool exCouponEndOfMonth)
     : Loan(0, schedule.calendar(), issueDate) {
-		QL_ENSURE(amortizations.size() != schedule.size() - 1, "number of amortization different than scheduled payment dates");
+		//QL_ENSURE(amortizations.size() != schedule.size() - 1, "number of amortization different than scheduled payment dates");
 		Real notional = 0;
-		std::vector<Real> notionals;
-		for (Size i = 0; i < schedule.size(); i++) {
+		std::vector<Real> notionals{0};
+        for (Size i = 0; i < amortizations.size(); i++) {
 			notional += amortizations[i];
 			notionals.push_back(notional);
 		}
 		std::reverse(notionals.begin(), notionals.end());
 		Leg tmp_cashflows = FixedRateLeg(schedule)
 			.withNotionals(notionals)
-			.withCouponRates(0,dayCounter)
+			.withCouponRates(0.0,dayCounter)
 			.withPaymentCalendar(schedule.calendar())
 			.withPaymentAdjustment(paymentConvention)
 			.withExCouponPeriod(exCouponPeriod, exCouponCalendar, exCouponConvention,
 				exCouponEndOfMonth);
 
+		ext::shared_ptr<CashFlow> payment;
+        for (Size i = 0; i < schedule.size() - 1; i++) {
+            if (i < schedule.size() - 1)
+                payment.reset(new AmortizingPayment(amortizations[i], tmp_cashflows[i]->date()));
+            else
+                payment.reset(new Redemption(amortizations[i], tmp_cashflows[i]->date()));
+            tmp_cashflows.push_back(payment);
+        }
+        std::stable_sort(tmp_cashflows.begin(), tmp_cashflows.end(),earlier_than<ext::shared_ptr<CashFlow> >());
+
 		//check
 		Rate atmRate = CashFlows::atmRate(tmp_cashflows, discountCurve, true, schedule.startDate(),
-                                       Settings::instance().evaluationDate(), notional);
+                                       schedule.startDate(), notional);
 
 		InterestRate tmp_rate(atmRate, dayCounter, comp, freq);
 		cashflows_ = FixedRateLeg(schedule)
@@ -125,6 +137,8 @@ namespace QuantLib {
 			.withPaymentAdjustment(paymentConvention)
 			.withExCouponPeriod(exCouponPeriod, exCouponCalendar, exCouponConvention,
 				exCouponEndOfMonth);
+        addRedemptionsToLoanCashflows();
+        QL_ENSURE(!cashflows().empty(), "bond with no cashflows!");
 	};
 
     // equal amortization loan
@@ -147,12 +161,12 @@ namespace QuantLib {
         Real redemption = faceAmount / s;
         Real notional = 0;
 		std::vector<Real> notionals{0};
-		for (Size i = 0; i < schedule.size(); i++) {
+		for (Size i = 0; i < schedule.size()-1; i++) {
 			notional += redemption;
 			notionals.push_back(notional);
 		}
 		std::reverse(notionals.begin(), notionals.end());
-        InterestRate tmp_rate(comp, dayCounter, comp, freq);
+        InterestRate tmp_rate(coupon, dayCounter, comp, freq);
         cashflows_ = FixedRateLeg(schedule)
                          .withNotionals(notionals)
                          .withCouponRates(tmp_rate)
@@ -177,11 +191,11 @@ namespace QuantLib {
                                                  bool exCouponEndOfMonth)
     : Loan(0, schedule.calendar(), issueDate) {
 
-        Size s = schedule.size() - 1;
+        Size s = schedule.size()-1;
         Real redemption = faceAmount / s;
 		Real notional = 0;
 		std::vector<Real> notionals{0};
-		for (Size i = 0; i < schedule.size(); i++) {
+		for (Size i = 0; i < schedule.size()-1; i++) {
 			notional += redemption;
 			notionals.push_back(notional);
 		}
@@ -217,7 +231,7 @@ namespace QuantLib {
         Real redemption = faceAmount / s;
 		Real notional = 0;
 		std::vector<Real> notionals;
-		for (Size i = 0; i < schedule.size(); i++) {
+		for (Size i = 0; i < schedule.size()-1; i++) {
 			notional += redemption;
 			notionals.push_back(notional);
 		}
@@ -242,8 +256,8 @@ namespace QuantLib {
         std::stable_sort(tmp_cashflows.begin(), tmp_cashflows.end(),
                          earlier_than<ext::shared_ptr<CashFlow> >());
 
-        Rate atmRate =CashFlows::atmRate(tmp_cashflows, discountCurve, true, schedule.startDate(),
-                               Settings::instance().evaluationDate(), faceAmount);
+        Rate atmRate = CashFlows::atmRate(tmp_cashflows, discountCurve, true, schedule.startDate(),
+                                          schedule.startDate(), faceAmount);
 
         cashflows_ = FixedRateLeg(schedule)
                          .withNotionals(notionals)
@@ -267,12 +281,15 @@ namespace QuantLib {
                          Compounding comp,
                          Frequency freq,
                          const YieldTermStructure& discountCurve = FlatForward(Date(),
-                                                                               0,
-                                                                               DayCounter()));
+                                                                               0.0,
+                                                                               Actual360()));
+            CouponFinder::CouponFinder(Real faceAmount,
+                                       const Schedule& schedule,
+                                       const InterestRate rate);
             Real equalCashFlow();
             Real notionalsFromRate(Real coupon) const;
             Real operator()(Rate coupon) const;
-            Real findCoupon(Real accuracy = 0.1, Size maxIterations = 100, Rate guess = 0.0);
+            Real findCoupon(Real accuracy = 0.0001, Size maxIterations = 10000, Rate guess = 0.0);
             std::vector<Real> calculatedNotionals();
 
           private:
@@ -293,12 +310,25 @@ namespace QuantLib {
                                    const YieldTermStructure& discountCurve)
         : faceAmount_(faceAmount), dayCounter_(dayCounter), comp_(comp), freq_(freq),
           schedule_(schedule) {
-                       Real df_sum = 0.0;
+            Real df_sum = 0.0;
             for (Size i = 1; i < schedule.size(); i++) {
                 df_sum += discountCurve.discount(schedule.at(i));
             }
-            targetCashFlow = faceAmount * discountCurve.discount(schedule.startDate()) / df_sum;
+            targetCashFlow = faceAmount / df_sum;
         };
+
+
+        CouponFinder::CouponFinder(Real faceAmount,
+                                   const Schedule& schedule,
+                                   const InterestRate rate)
+        : faceAmount_(faceAmount), dayCounter_(rate.dayCounter()), comp_(rate.compounding()), freq_(rate.frequency()),
+          schedule_(schedule) {            
+			Real df_sum = 0.0;
+            for (Size i = 1; i < schedule.size(); i++) {
+                 df_sum += rate.discountFactor(schedule.at(0), schedule.at(i));
+            }
+            targetCashFlow = faceAmount/ df_sum;
+        }
         Real CouponFinder::equalCashFlow() { return targetCashFlow; };
         Real CouponFinder::notionalsFromRate(Real coupon) const {
             InterestRate tmp_rate(coupon, dayCounter_, comp_, freq_);
@@ -342,13 +372,13 @@ namespace QuantLib {
                                          const BusinessDayConvention exCouponConvention,
                                          bool exCouponEndOfMonth)
     : Loan(0, schedule.calendar(), issueDate) {
-
-        CouponFinder crf(faceAmount, schedule, dayCounter, comp, freq);
+        InterestRate tmp_coupon(coupon, dayCounter, comp, freq);
+        CouponFinder crf(faceAmount, schedule, tmp_coupon);
         crf.notionalsFromRate(coupon);
         std::vector<Real> notionals = crf.calculatedNotionals();
         cashflows_ = FixedRateLeg(schedule)
                          .withNotionals(notionals)
-                         .withCouponRates(coupon, dayCounter)
+                         .withCouponRates(tmp_coupon)
                          .withPaymentCalendar(schedule.calendar())
                          .withPaymentAdjustment(paymentConvention)
                          .withExCouponPeriod(exCouponPeriod, exCouponCalendar, exCouponConvention,
@@ -368,9 +398,7 @@ namespace QuantLib {
                                          const BusinessDayConvention exCouponConvention,
                                          bool exCouponEndOfMonth)
     : Loan(0, schedule.calendar(), issueDate) {
-
-        CouponFinder crf(faceAmount, schedule, coupon.dayCounter(), coupon.compounding(),
-                         coupon.frequency());
+        CouponFinder crf(faceAmount, schedule, coupon);
         crf.notionalsFromRate(coupon.rate());
         std::vector<Real> notionals = crf.calculatedNotionals();
         cashflows_ = FixedRateLeg(schedule)

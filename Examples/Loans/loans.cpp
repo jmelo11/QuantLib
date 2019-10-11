@@ -34,7 +34,7 @@ int main(int, char*[]) {
 
 
     Date issueDate(10, Oct, 2019);
-    Date endDate(10, Oct, 2025);
+    Date endDate(10, Oct, 2021);
     Calendar calendar = NullCalendar();
     Schedule schedule(issueDate, endDate, Period(Annual), calendar, Unadjusted, Unadjusted,
                       DateGeneration::Backward, false);
@@ -43,11 +43,54 @@ int main(int, char*[]) {
     Real faceAmount = 100;
 	Rate rateCoupon = 0.06;
     InterestRate classCoupon(rateCoupon, rateDayCounter, Compounded, Annual);
-    FlatForward curve(today, rateCoupon, rateDayCounter);
+    FlatForward curve(today, rateCoupon, rateDayCounter, Compounded, Annual);
 
-	EqualCashFlowLoan eq1(faceAmount, schedule, rateCoupon, rateDayCounter);
-	cashflowsToTable(eq1);
-	wait_on_enter();
+	std::cout << std::endl;
+	std::cout << "Equal Amortization Loans:" << std::endl;
+	EqualAmortizationLoan eq1(faceAmount, schedule, rateCoupon, rateDayCounter);    
+    EqualAmortizationLoan eq2(faceAmount, schedule, classCoupon);
+    EqualAmortizationLoan eq3(faceAmount, schedule, curve, rateDayCounter);
+    cashflowsToTable(eq1);
+	cashflowsToTable(eq2);
+    cashflowsToTable(eq3);
+
+	std::cout << std::endl;
+	std::cout << "Equal Cashflow Loans:" << std::endl;
+    EqualCashFlowLoan ec1(faceAmount, schedule, rateCoupon, rateDayCounter);
+    EqualCashFlowLoan ec2(faceAmount, schedule, classCoupon);
+    EqualCashFlowLoan ec3(faceAmount, schedule, curve, rateDayCounter);
+    cashflowsToTable(ec1);
+    cashflowsToTable(ec2);
+    cashflowsToTable(ec3);
+
+	std::cout << std::endl;
+	std::cout << "Unequal Amortization Loans - First Test:   " << std::endl;
+	std::vector<Real> amortizations{50, 50};
+    UnEqualAmortizationLoan uneq_a1(amortizations, schedule, rateCoupon, rateDayCounter);
+    UnEqualAmortizationLoan uneq_a2(amortizations, schedule, classCoupon);	
+	UnEqualAmortizationLoan uneq_a3(amortizations, schedule, curve, rateDayCounter);
+
+	cashflowsToTable(uneq_a1);
+    cashflowsToTable(uneq_a2);
+    cashflowsToTable(uneq_a3);
+	
+	amortizations.clear();
+    amortizations.assign({-50, 50, 0, 20});
+    endDate = Date(10, Oct, 2023);   
+	schedule = Schedule(issueDate, endDate, Period(Annual), calendar, Unadjusted, Unadjusted,
+                        DateGeneration::Backward, false);
+        
+    std::cout << "Unequal Amortization Loans - Second Test:   " << std::endl;
+    UnEqualAmortizationLoan uneq_b1(amortizations, schedule, rateCoupon, rateDayCounter);
+    UnEqualAmortizationLoan uneq_b2(amortizations, schedule, classCoupon);
+    UnEqualAmortizationLoan uneq_b3(amortizations, schedule, curve, rateDayCounter);
+
+    cashflowsToTable(uneq_b1);
+    cashflowsToTable(uneq_b2);
+    cashflowsToTable(uneq_b3);
+
+
+    wait_on_enter();
 };
 
 void cashflowsToTable(Loan loan){ 
@@ -55,14 +98,13 @@ void cashflowsToTable(Loan loan){
     Real interest;
     Real redempt;
 
-	std::cout << "Date"
-              << "Interest"
-              << "Amortization" << std::endl;
-    for (Size i = 0; i <= loan.cashflows().size() / 2; i++) {
+	std::cout << std::setw(10) << "Date" << std::setw(10) << "Interest" << std::setw(10) << std::setw(10) << "Amortization" << std::endl;
+    for (Size i = 0; i < loan.cashflows().size() / 2; i++) {
         date = loan.cashflows()[i * 2]->date();
         interest = loan.cashflows()[i * 2]->amount();
         redempt = loan.cashflows()[i * 2 + 1]->amount();  
-		std::cout << date << interest << redempt << std::endl;
+		std::cout << std::setw(10) << date << std::setw(10) << interest << std::setw(10)
+                  << std::setw(10) << redempt << std::endl;
     }
 };
 
