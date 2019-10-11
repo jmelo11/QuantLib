@@ -13,7 +13,8 @@
 #include <ql/instruments/loans/structuredloans.hpp>
 #include <ql/math/solvers1d/brent.hpp>
 #include <ql/termstructures/yield/flatforward.hpp>
-
+//need to be fixed
+#include <ql/quantlib.hpp>
 
 namespace QuantLib {
     UnEqualAmortizationLoan::UnEqualAmortizationLoan(std::vector<Real> amortizations,

@@ -31,5 +31,5 @@ namespace QuantLib {
         void addRedemptionsToLoanCashflows(const std::vector<Real>& redemptions = std::vector<Real>());
         void calculateNotionalsFromLoanCashflows();
     };
-}
+};
 #endif

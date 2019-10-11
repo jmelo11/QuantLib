@@ -6,16 +6,16 @@
 //  Copyright © 2019 Jose Melo. All rights reserved.
 //
 
-#ifndef structuredloans_hpp
-#define structuredloans_hpp
-#endif /* structuredloans_hpp */
+#ifndef quantlib_structuredloans_hpp
+#define quantlib_structuredloans_hpp
+
 
 #include <ql/instruments/loans/loan.hpp>
-
+#include <ql/time/daycounter.hpp>
+#include <ql/time/schedule.hpp>
+#include <ql/termstructures/yieldtermstructure.hpp>
 
 namespace QuantLib {
-    class Schedule;
-    class YieldTermStructure;
     class UnEqualAmortizationLoan : public Loan {
       public:
         UnEqualAmortizationLoan(std::vector<Real> amortizations,
@@ -163,4 +163,5 @@ namespace QuantLib {
         Frequency frequency_;
         DayCounter dayCounter_;
     };
-}
+};
+#endif

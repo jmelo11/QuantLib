@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{1E44F150-2CA4-4A01-B150-12B20BE0414F}</ProjectGuid>
     <RootNamespace>Loans</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -70,26 +70,26 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\bloomberg\Desktop\c++\QuantLib;C:\Users\bloomberg\Desktop\c++\boost_1_71_0;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\bloomberg\Desktop\c++\boost_1_71_0\lib;C:\Users\bloomberg\Desktop\c++\QuantLib\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Jose\Desktop\QL\boost_1_71_0;C:\Users\Jose\Desktop\QL\QuantLib;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Jose\Desktop\QL\boost_1_71_0\lib;C:\Users\Jose\Desktop\QL\QuantLib\lib;$(LibraryPath)</LibraryPath>
     <OutDir>./</OutDir>
     <IntDir>./</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\Users\bloomberg\Desktop\c++\QuantLib;C:\Users\bloomberg\Desktop\c++\boost_1_71_0;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\bloomberg\Desktop\c++\boost_1_71_0\lib;C:\Users\bloomberg\Desktop\c++\QuantLib\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Jose\Desktop\QL\boost_1_71_0;C:\Users\Jose\Desktop\QL\QuantLib;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Jose\Desktop\QL\boost_1_71_0\lib;C:\Users\Jose\Desktop\QL\QuantLib\lib;$(LibraryPath)</LibraryPath>
     <OutDir>./</OutDir>
     <IntDir>./</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\bloomberg\Desktop\c++\QuantLib;C:\Users\bloomberg\Desktop\c++\boost_1_71_0;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\bloomberg\Desktop\c++\boost_1_71_0\lib;C:\Users\bloomberg\Desktop\c++\QuantLib\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Jose\Desktop\QL\boost_1_71_0;C:\Users\Jose\Desktop\QL\QuantLib;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Jose\Desktop\QL\boost_1_71_0\lib;C:\Users\Jose\Desktop\QL\QuantLib\lib;$(LibraryPath)</LibraryPath>
     <OutDir>./</OutDir>
     <IntDir>./</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Users\bloomberg\Desktop\c++\QuantLib;C:\Users\bloomberg\Desktop\c++\boost_1_71_0;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\bloomberg\Desktop\c++\boost_1_71_0\lib;C:\Users\bloomberg\Desktop\c++\QuantLib\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Jose\Desktop\QL\boost_1_71_0;C:\Users\Jose\Desktop\QL\QuantLib;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Jose\Desktop\QL\boost_1_71_0\lib;C:\Users\Jose\Desktop\QL\QuantLib\lib;$(LibraryPath)</LibraryPath>
     <OutDir>./</OutDir>
     <IntDir>./</IntDir>
   </PropertyGroup>
