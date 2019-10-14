@@ -4,7 +4,7 @@
 #endif
 
 #include <ql/instruments/loans/loan.hpp>
-#include <ql/instruments/loans/structuredloans.hpp>
+#include <ql/instruments/loans/fixedrateloans.hpp>
 
 #include <ql/termstructures/yield/flatforward.hpp>
 #include <ql/instruments/bonds/zerocouponbond.hpp>

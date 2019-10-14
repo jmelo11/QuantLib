@@ -3,11 +3,11 @@
 //  Loans
 //
 //  Created by Jose Melo on 9/22/19.
-//  Copyright © 2019 Jose Melo. All rights reserved.
+//  Copyright ï¿½ 2019 Jose Melo. All rights reserved.
 //
 
-#ifndef quantlib_structuredloans_hpp
-#define quantlib_structuredloans_hpp
+#ifndef quantlib_fixedrateloans_hpp
+#define quantlib_fixedrateloans_hpp
 
 
 #include <ql/instruments/loans/loan.hpp>

@@ -10,7 +10,7 @@
 #include <ql/cashflows/fixedratecoupon.hpp>
 #include <ql/cashflows/simplecashflow.hpp>
 #include <ql/instruments/loans/loan.hpp>
-#include <ql/instruments/loans/structuredloans.hpp>
+#include <ql/instruments/loans/fixedrateloans.hpp>
 #include <ql/math/solvers1d/brent.hpp>
 #include <ql/termstructures/yield/flatforward.hpp>
 //need to be fixed
@@ -67,7 +67,7 @@ namespace QuantLib {
                                                      bool exCouponEndOfMonth): Loan(0, schedule.calendar(), issueDate) {
         //QL_ENSURE(amortizations.size() != schedule.size() - 1,"number of amortization different than scheduled payment dates");
         Real notional = 0;
-        std::vector<Real> notionals{0};
+        std::vector<Real> notionals(1,0);
         for (Size i = 0; i < amortizations.size(); i++) {
             notional += amortizations[i];
             notionals.push_back(notional);
@@ -101,7 +101,7 @@ namespace QuantLib {
     : Loan(0, schedule.calendar(), issueDate) {
 		//QL_ENSURE(amortizations.size() != schedule.size() - 1, "number of amortization different than scheduled payment dates");
 		Real notional = 0;
-		std::vector<Real> notionals{0};
+		std::vector<Real> notionals(1,0);
         for (Size i = 0; i < amortizations.size(); i++) {
 			notional += amortizations[i];
 			notionals.push_back(notional);
@@ -160,7 +160,7 @@ namespace QuantLib {
         Size s = schedule.size() - 1;
         Real redemption = faceAmount / s;
         Real notional = 0;
-		std::vector<Real> notionals{0};
+		std::vector<Real> notionals(1,0);
 		for (Size i = 0; i < schedule.size()-1; i++) {
 			notional += redemption;
 			notionals.push_back(notional);
@@ -194,7 +194,7 @@ namespace QuantLib {
         Size s = schedule.size()-1;
         Real redemption = faceAmount / s;
 		Real notional = 0;
-		std::vector<Real> notionals{0};
+		std::vector<Real> notionals(1,0);
 		for (Size i = 0; i < schedule.size()-1; i++) {
 			notional += redemption;
 			notionals.push_back(notional);
@@ -283,7 +283,7 @@ namespace QuantLib {
                          const YieldTermStructure& discountCurve = FlatForward(Date(),
                                                                                0.0,
                                                                                Actual360()));
-            CouponFinder::CouponFinder(Real faceAmount,
+            CouponFinder(Real faceAmount,
                                        const Schedule& schedule,
                                        const InterestRate rate);
             Real equalCashFlow();
@@ -335,7 +335,7 @@ namespace QuantLib {
             Real interest;
             Real amort = 0;
             amortizations_.clear();
-            notionals_ = {faceAmount_};
+            notionals_.push_back(faceAmount_);
             for (Size i = 0; i < schedule_.size() - 1; i++) {
                 interest = (tmp_rate.compoundFactor(schedule_.at(i), schedule_.at(i + 1)) - 1) *
                            notionals_[i];
