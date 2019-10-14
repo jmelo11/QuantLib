@@ -12,15 +12,15 @@
 #include <ql/time/schedule.hpp>
 #include <ql/indexes/swapindex.hpp>
 #include <ql/indexes/iborindex.hpp>
+#include <numeric>
 
 namespace QuantLib {
-    FloatingRateLoan::FloatingRateLoan(Real faceAmount,
+    FloatingRateLoan::FloatingRateLoan(const std::vector<Real>& amortizations,
                            const Schedule& schedule,
                            const ext::shared_ptr<IborIndex>& iborIndex,
                            const DayCounter& paymentDayCounter,
                            BusinessDayConvention paymentConvention,
                            Natural fixingDays,
-                           const std::vector<Real>& gearings,
                            const std::vector<Spread>& spreads,
                            const std::vector<Rate>& caps,
                            const std::vector<Rate>& floors,
@@ -32,57 +32,57 @@ namespace QuantLib {
                            const BusinessDayConvention exCouponConvention,
                            bool exCouponEndOfMonth)
     : Loan(0, schedule.calendar(), issueDate) {
-
+        Real notional = std::accumulate(amortizations.begin(), amortizations.end(), 0);
+        std::vector<Real> notionals(1, notional);
+        for (Size i = 0; i < amortizations.size(); i++) {
+            notional -= amortizations[i];
+            notionals.push_back(notional);
+        }      
         maturityDate_ = schedule.endDate();
 
         cashflows_ = IborLeg(schedule, iborIndex)
-            .withNotionals(faceAmount)
+            .withNotionals(notionals)
             .withPaymentDayCounter(paymentDayCounter)
             .withPaymentAdjustment(paymentConvention)
             .withFixingDays(fixingDays)
-            .withGearings(gearings)
             .withSpreads(spreads)
             .withCaps(caps)
             .withFloors(floors)
             .inArrears(inArrears)
             .withExCouponPeriod(exCouponPeriod, exCouponCalendar, exCouponConvention, exCouponEndOfMonth);
 
-        addRedemptionsToLoanCashflows(std::vector<Real>(1, redemption));
+        addRedemptionsToLoanCashflows();
 
         QL_ENSURE(!cashflows().empty(), "bond with no cashflows!");
-        QL_ENSURE(redemptions_.size() == 1, "multiple redemptions created");
-
         registerWith(iborIndex);
     }
 
-    FloatingRateLoan::FloatingRateLoan(Real faceAmount,
-                           const Date& startDate,
-                           const Date& maturityDate,
-                           Frequency couponFrequency,
-                           const Calendar& calendar,
-                           const ext::shared_ptr<IborIndex>& iborIndex,
-                           const DayCounter& accrualDayCounter,
-                           BusinessDayConvention accrualConvention,
-                           BusinessDayConvention paymentConvention,
-                           Natural fixingDays,
-                           const std::vector<Real>& gearings,
-                           const std::vector<Spread>& spreads,
-                           const std::vector<Rate>& caps,
-                           const std::vector<Rate>& floors,
-                           bool inArrears,
-                           Real redemption,
-                           const Date& issueDate,
-                           const Date& stubDate,
-                           DateGeneration::Rule rule,
-                           bool endOfMonth,
-                           const Period& exCouponPeriod,
-                           const Calendar& exCouponCalendar,
-                           const BusinessDayConvention exCouponConvention,
-                           bool exCouponEndOfMonth)
+    FloatingRateLoan::FloatingRateLoan(const std::vector<Real>& amortizations,
+										const Date& startDate,
+										const Date& maturityDate,
+										Frequency couponFrequency,
+										const Calendar& calendar,
+										const ext::shared_ptr<IborIndex>& iborIndex,
+										const DayCounter& accrualDayCounter,
+										BusinessDayConvention accrualConvention,
+										BusinessDayConvention paymentConvention,
+										Natural fixingDays,
+										const std::vector<Spread>& spreads,
+										const std::vector<Rate>& caps,
+										const std::vector<Rate>& floors,
+										bool inArrears,
+										Real redemption = 100.0,
+										const Date& issueDate = Date(),
+										const Date& stubDate = Date(),
+										DateGeneration::Rule rule = DateGeneration::Backward,
+										bool endOfMonth = false,
+										const Period& exCouponPeriod = Period(),
+										const Calendar& exCouponCalendar = Calendar(),
+										const BusinessDayConvention exCouponConvention = Unadjusted,
+										bool exCouponEndOfMonth = false)
     : Loan(0, calendar, issueDate) {
 
         maturityDate_ = maturityDate;
-
         Date firstDate, nextToLastDate;
         switch (rule) {
           case DateGeneration::Backward:
@@ -102,29 +102,33 @@ namespace QuantLib {
           default:
             QL_FAIL("unknown DateGeneration::Rule (" << Integer(rule) << ")");
         }
+        Real notional = std::accumulate(amortizations.begin(), amortizations.end(), 0);
+        std::vector<Real> notionals(1, notional);
+        for (Size i = 0; i < amortizations.size(); i++) {
+            notional -= amortizations[i];
+            notionals.push_back(notional);
+        }      
 
         Schedule schedule(startDate, maturityDate_, Period(couponFrequency),
                           calendar_, accrualConvention, accrualConvention,
                           rule, endOfMonth,
                           firstDate, nextToLastDate);
 
+
         cashflows_ = IborLeg(schedule, iborIndex)
-            .withNotionals(faceAmount)
+            .withNotionals(notionals)
             .withPaymentDayCounter(accrualDayCounter)
             .withPaymentAdjustment(paymentConvention)
             .withFixingDays(fixingDays)
-            .withGearings(gearings)
             .withSpreads(spreads)
             .withCaps(caps)
             .withFloors(floors)
             .inArrears(inArrears)
             .withExCouponPeriod(exCouponPeriod,exCouponCalendar, exCouponConvention, exCouponEndOfMonth);
 
-        addRedemptionsToLoanCashflows(std::vector<Real>(1, redemption));
+        addRedemptionsToLoanCashflows();
 
         QL_ENSURE(!cashflows().empty(), "bond with no cashflows!");
-        QL_ENSURE(redemptions_.size() == 1, "multiple redemptions created");
-
         registerWith(iborIndex);
     }
 

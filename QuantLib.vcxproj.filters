@@ -4291,8 +4291,17 @@
     <ClInclude Include="ql\instruments\loans\loan.hpp">
       <Filter>instruments\loans</Filter>
     </ClInclude>
-    <ClInclude Include="ql\instruments\loans\structuredloans.hpp">
+    <ClInclude Include="ql\instruments\loans\all.hpp">
       <Filter>instruments\loans</Filter>
+    </ClInclude>
+    <ClInclude Include="ql\instruments\loans\fixedrateloans.hpp">
+      <Filter>instruments\loans</Filter>
+    </ClInclude>
+    <ClInclude Include="ql\instruments\loans\floatingrateloans.hpp">
+      <Filter>instruments\loans</Filter>
+    </ClInclude>
+    <ClInclude Include="ql\time\calendars\chile.hpp">
+      <Filter>time\calendars</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -6927,8 +6936,14 @@
     <ClCompile Include="ql\instruments\loans\loan.cpp">
       <Filter>instruments\loans</Filter>
     </ClCompile>
-    <ClCompile Include="ql\instruments\loans\structuredloans.cpp">
+    <ClCompile Include="ql\instruments\loans\fixedrateloans.cpp">
       <Filter>instruments\loans</Filter>
+    </ClCompile>
+    <ClCompile Include="ql\instruments\loans\floatingrateloans.cpp">
+      <Filter>instruments\loans</Filter>
+    </ClCompile>
+    <ClCompile Include="ql\time\calendars\chile.cpp">
+      <Filter>time\calendars</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

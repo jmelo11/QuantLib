@@ -946,8 +946,10 @@
     <ClInclude Include="ql\instruments\futures.hpp" />
     <ClInclude Include="ql\instruments\impliedvolatility.hpp" />
     <ClInclude Include="ql\instruments\inflationcapfloor.hpp" />
+    <ClInclude Include="ql\instruments\loans\all.hpp" />
+    <ClInclude Include="ql\instruments\loans\fixedrateloans.hpp" />
+    <ClInclude Include="ql\instruments\loans\floatingrateloans.hpp" />
     <ClInclude Include="ql\instruments\loans\loan.hpp" />
-    <ClInclude Include="ql\instruments\loans\structuredloans.hpp" />
     <ClInclude Include="ql\instruments\lookbackoption.hpp" />
     <ClInclude Include="ql\instruments\makecapfloor.hpp" />
     <ClInclude Include="ql\instruments\makecds.hpp" />
@@ -1757,6 +1759,7 @@
     <ClInclude Include="ql\time\calendars\botswana.hpp" />
     <ClInclude Include="ql\time\calendars\brazil.hpp" />
     <ClInclude Include="ql\time\calendars\canada.hpp" />
+    <ClInclude Include="ql\time\calendars\chile.hpp" />
     <ClInclude Include="ql\time\calendars\china.hpp" />
     <ClInclude Include="ql\time\calendars\czechrepublic.hpp" />
     <ClInclude Include="ql\time\calendars\denmark.hpp" />
@@ -2163,8 +2166,9 @@
     <ClCompile Include="ql\instruments\futures.cpp" />
     <ClCompile Include="ql\instruments\impliedvolatility.cpp" />
     <ClCompile Include="ql\instruments\inflationcapfloor.cpp" />
+    <ClCompile Include="ql\instruments\loans\fixedrateloans.cpp" />
+    <ClCompile Include="ql\instruments\loans\floatingrateloans.cpp" />
     <ClCompile Include="ql\instruments\loans\loan.cpp" />
-    <ClCompile Include="ql\instruments\loans\structuredloans.cpp" />
     <ClCompile Include="ql\instruments\lookbackoption.cpp" />
     <ClCompile Include="ql\instruments\makecapfloor.cpp" />
     <ClCompile Include="ql\instruments\makecds.cpp" />
@@ -2689,6 +2693,7 @@
     <ClCompile Include="ql\time\calendars\botswana.cpp" />
     <ClCompile Include="ql\time\calendars\brazil.cpp" />
     <ClCompile Include="ql\time\calendars\canada.cpp" />
+    <ClCompile Include="ql\time\calendars\chile.cpp" />
     <ClCompile Include="ql\time\calendars\china.cpp" />
     <ClCompile Include="ql\time\calendars\czechrepublic.cpp" />
     <ClCompile Include="ql\time\calendars\denmark.cpp" />

@@ -88,9 +88,7 @@ int main(int, char*[]) {
     cashflowsToTable(uneq_b1);
     cashflowsToTable(uneq_b2);
     cashflowsToTable(uneq_b3);
-
-
-    wait_on_enter();
+	wait_on_enter();
 };
 
 void cashflowsToTable(Loan loan){ 
@@ -98,13 +96,12 @@ void cashflowsToTable(Loan loan){
     Real interest;
     Real redempt;
 
-	std::cout << std::setw(10) << "Date" << std::setw(10) << "Interest" << std::setw(10) << std::setw(10) << "Amortization" << std::endl;
+	std::cout << std::setw(10) << "Date" << std::setw(20) << "Interest" << std::setw(30) << "Amortization" << std::endl;
     for (Size i = 0; i < loan.cashflows().size() / 2; i++) {
         date = loan.cashflows()[i * 2]->date();
         interest = loan.cashflows()[i * 2]->amount();
         redempt = loan.cashflows()[i * 2 + 1]->amount();  
-		std::cout << std::setw(10) << date << std::setw(10) << interest << std::setw(10)
-                  << std::setw(10) << redempt << std::endl;
+		std::cout << std::setw(10) << date << std::setw(20) << interest << std::setw(30) << redempt << std::endl;
     }
 };
 

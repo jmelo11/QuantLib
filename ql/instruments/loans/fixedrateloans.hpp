@@ -18,7 +18,7 @@
 namespace QuantLib {
     class UnEqualAmortizationLoan : public Loan {
       public:
-        UnEqualAmortizationLoan(std::vector<Real> amortizations,
+        UnEqualAmortizationLoan(const std::vector<Real>& amortizations,
                                 const Schedule& schedule,
                                 const Real coupon,
                                 const DayCounter& dayCounter,
@@ -32,7 +32,7 @@ namespace QuantLib {
                                 const BusinessDayConvention exCouponConvention = Unadjusted,
                                 bool exCouponEndOfMonth = false);
 
-        UnEqualAmortizationLoan(std::vector<Real> amortizations,
+        UnEqualAmortizationLoan(const std::vector<Real>& amortizations,
                                 const Schedule& schedule,
                                 const InterestRate coupon,
                                 BusinessDayConvention paymentConvention = Following,
@@ -43,7 +43,7 @@ namespace QuantLib {
                                 const BusinessDayConvention exCouponConvention = Unadjusted,
                                 bool exCouponEndOfMonth = false);
 
-        UnEqualAmortizationLoan(std::vector<Real> amortizations,
+        UnEqualAmortizationLoan(const std::vector<Real>& amortizations,
                                 Schedule schedule,
                                 YieldTermStructure& discountCurve,
                                 const DayCounter& dayCounter,
