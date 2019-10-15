@@ -28,7 +28,7 @@ using namespace QuantLib;
 void cashflowsToTable(Loan loan);
 void wait_on_enter();
 
-int main(int, char*[]) {
+void main2(int, char*[]) {
 	// Basic Info
     Date today(10, Oct, 2019);
 
