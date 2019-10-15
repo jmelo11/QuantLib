@@ -71,15 +71,15 @@ namespace QuantLib {
 										const std::vector<Rate>& caps,
 										const std::vector<Rate>& floors,
 										bool inArrears,
-										Real redemption = 100.0,
-										const Date& issueDate = Date(),
-										const Date& stubDate = Date(),
-										DateGeneration::Rule rule = DateGeneration::Backward,
-										bool endOfMonth = false,
-										const Period& exCouponPeriod = Period(),
-										const Calendar& exCouponCalendar = Calendar(),
-										const BusinessDayConvention exCouponConvention = Unadjusted,
-										bool exCouponEndOfMonth = false)
+										Real redemption,
+										const Date& issueDate,
+										const Date& stubDate,
+										DateGeneration::Rule rule,
+										bool endOfMonth,
+										const Period& exCouponPeriod,
+										const Calendar& exCouponCalendar,
+										const BusinessDayConvention exCouponConvention,
+										bool exCouponEndOfMonth)
     : Loan(0, calendar, issueDate) {
 
         maturityDate_ = maturityDate;

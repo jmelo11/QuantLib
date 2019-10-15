@@ -16,7 +16,7 @@ namespace QuantLib {
 
     class Schedule;
     class IborIndex;
-
+    class YieldTermStructure;
     //! floating-rate bond (possibly capped and/or floored)
     /*! \ingroup instruments
 
@@ -44,29 +44,21 @@ namespace QuantLib {
                          const Calendar& exCouponCalendar = Calendar(),
                          const BusinessDayConvention exCouponConvention = Unadjusted,
                          bool exCouponEndOfMonth = false);
+        
         FloatingRateLoan(const std::vector<Real>& amortizations,
-                         const Date& startDate,
-                         const Date& maturityDate,
-                         Frequency couponFrequency,
-                         const Calendar& calendar,
-                         const ext::shared_ptr<IborIndex>& iborIndex,
-                         const DayCounter& accrualDayCounter,
-                         BusinessDayConvention accrualConvention = Following,
-                         BusinessDayConvention paymentConvention = Following,
-                         Natural fixingDays = Null<Natural>(),                         
-                         const std::vector<Spread>& spreads = std::vector<Spread>(1, 0.0),
-                         const std::vector<Rate>& caps = std::vector<Rate>(),
-                         const std::vector<Rate>& floors = std::vector<Rate>(),
-                         bool inArrears = false,
-                         Real redemption = 100.0,
-                         const Date& issueDate = Date(),
-                         const Date& stubDate = Date(),
-                         DateGeneration::Rule rule = DateGeneration::Backward,
-                         bool endOfMonth = false,
-                         const Period& exCouponPeriod = Period(),
-                         const Calendar& exCouponCalendar = Calendar(),
-                         const BusinessDayConvention exCouponConvention = Unadjusted,
-                         bool exCouponEndOfMonth = false);
+                        const Schedule& schedule,
+                        const ext::shared_ptr<IborIndex>& iborIndex,
+                        const DayCounter& accrualDayCounter,
+                        const YieldTermStructure& discountCurve,
+                        BusinessDayConvention paymentConvention = Following,
+                        Natural fixingDays = Null<Natural>(),                        
+                        bool inArrears = false,
+                        Real redemption = 100.0,
+                        const Date& issueDate = Date(),
+                        const Period& exCouponPeriod = Period(),
+                        const Calendar& exCouponCalendar = Calendar(),
+                        const BusinessDayConvention exCouponConvention = Unadjusted,
+                        bool exCouponEndOfMonth = false);
     };
 }
 

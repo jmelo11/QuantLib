@@ -1,5 +1,5 @@
 
-SUBDIRS = bonds
+SUBDIRS = bonds loans
 
 AM_CPPFLAGS = -I${top_builddir} -I${top_srcdir}
 
@@ -141,7 +141,8 @@ libInstruments_la_SOURCES = $(cpp_files)
 endif
 
 libInstruments_la_LIBADD = \
-    bonds/libBonds.la
+    bonds/libBonds.la \
+    loans/libLoans.la	
 
 noinst_LTLIBRARIES = libInstruments.la
 

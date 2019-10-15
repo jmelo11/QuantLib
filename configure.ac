@@ -484,6 +484,7 @@ AC_CONFIG_FILES([
     ql/indexes/swap/Makefile
     ql/instruments/Makefile
     ql/instruments/bonds/Makefile
+    ql/instruments/loans/Makefile
     ql/legacy/Makefile
     ql/legacy/libormarketmodels/Makefile
     ql/math/Makefile
